@@ -1,11 +1,14 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.js boilerplate package",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "author": "Afanasev",
+  "type": "module",
+  "main": "bin/gendiff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
