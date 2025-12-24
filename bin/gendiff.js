@@ -2,8 +2,6 @@
 
 import { program } from 'commander';
 import * as fs from 'fs';
-import path from 'path';
-import cwd from 'process';
 
 program
     .version('0.0.1')
@@ -12,7 +10,6 @@ program
     .argument('<filepath2>', 'two data')
     .description('Compares two configuration files and shows a difference.')
     program.parse(process.argv);
-
 
     function fileArgumentInfo (number = 0) {
         const argument = `${'bin/'}${program.parse(process.argv).args[number]}`;
