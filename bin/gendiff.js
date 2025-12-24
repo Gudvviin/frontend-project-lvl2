@@ -52,4 +52,4 @@ program
   }
      return obj
     }
-     console.log(immutability(fileArgumentInfo(0), fileArgumentInfo(1)));
+    
