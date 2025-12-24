@@ -3,6 +3,7 @@
 import { program } from 'commander';
 import * as fs from 'fs';
 import path from 'path';
+import cwd from 'process';
 
 program
     .version('0.0.1')
@@ -13,8 +14,34 @@ program
     program.parse(process.argv);
 
 
-   const file1 = fs.readFileSync("bin/filepath1.json", "utf8")
-   const file1Read = JSON.parse(file1)
-   const file2 = fs.readFileSync("bin/filepath2.json", "utf8")
-   const file2Read = JSON.parse(file2)
-   console.log(Object.assign(file1Read, file2Read))
+    function fileArgumentInfo (number = 0) {
+        const argument = `${'bin/'}${program.parse(process.argv).args[number]}`;
+        const obj = JSON.parse(fs.readFileSync(argument, "utf8"));
+            return obj;
+    }
+    
+    function sorted (obj) {
+      return Object.fromEntries(Object.entries(obj).sort());
+    }
+    function immutability (oneArgument, twoArgument) {
+  const obj = {};
+  for (const oneKey in sorted(oneArgument)) {
+    if (oneKey in sorted(twoArgument)) {
+      if (oneArgument[oneKey] === twoArgument[oneKey]) {
+        obj[oneKey] = oneArgument[oneKey];
+      } else {
+        obj[`- ${oneKey}`] = oneArgument[oneKey];
+        obj[`+ ${oneKey}`] = twoArgument[oneKey];
+      }
+    } else {
+      obj[`- ${oneKey}`] = oneArgument[oneKey];
+    }
+  }
+  for (const twoKey in twoArgument) {
+    if (!(twoKey in oneArgument)) {
+      obj[`+ ${twoKey}`] = twoArgument[twoKey];
+    }
+  }
+     return obj
+    }
+     console.log(immutability(fileArgumentInfo(0), fileArgumentInfo(1)));
