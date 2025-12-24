@@ -1,3 +1,14 @@
+#!/Projects/project2 node
+import genDiff from '@hexlet/code';
+    
+    const { program } = require('commander');
+
+    program
+    .name('gendiff')
+    .option('-h')
+  const diff = genDiff(filepath1, filepath2);
+  console.log(diff);
+  console.log('qwe');
 #!/bin/gendiff.js node
 
 import { program } from 'commander';
@@ -41,4 +52,4 @@ program
   }
      return obj
     }
-     console.log(immutability(fileArgumentInfo(0), fileArgumentInfo(1)));
+    
