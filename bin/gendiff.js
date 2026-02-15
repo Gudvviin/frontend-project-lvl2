@@ -20,7 +20,8 @@ program
     function sorted (obj) {
       return Object.fromEntries(Object.entries(obj).sort());
     }
-    function immutability (oneArgument, twoArgument) {
+    
+    function mergeSorting (oneArgument, twoArgument) {
   const obj = {};
   for (const oneKey in sorted(oneArgument)) {
     if (oneKey in sorted(twoArgument)) {
@@ -41,3 +42,6 @@ program
   }
      return obj
     }
+    mergeSorting(fileArgumentInfo(0), fileArgumentInfo(1))
+    
+    export {mergeSorting};
