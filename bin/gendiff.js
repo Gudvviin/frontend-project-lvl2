@@ -1,47 +1,26 @@
-#!/bin/gendiff.js node
+#!/usr/bin/env node
 
 import { program } from 'commander';
 import * as fs from 'fs';
+import { mergeSorting } from '../src/functions.js';
 
 program
-    .version('0.0.1')
+    .version('0.0.1', `-V, --version, output the version number`)
     .option('-f, --format [type]',  'output format')
     .argument('<filepath1>', 'one data')
     .argument('<filepath2>', 'two data')
     .description('Compares two configuration files and shows a difference.')
     program.parse(process.argv);
 
-    function fileArgumentInfo (number = 0) {
+
+    function fileArgumentInfoSorted (number = 0) {
         const argument = `${'bin/'}${program.parse(process.argv).args[number]}`;
         const obj = JSON.parse(fs.readFileSync(argument, "utf8"));
-            return obj;
-    }
-    
-    function sorted (obj) {
-      return Object.fromEntries(Object.entries(obj).sort());
-    }
-    
-    function mergeSorting (oneArgument, twoArgument) {
-  const obj = {};
-  for (const oneKey in sorted(oneArgument)) {
-    if (oneKey in sorted(twoArgument)) {
-      if (oneArgument[oneKey] === twoArgument[oneKey]) {
-        obj[oneKey] = oneArgument[oneKey];
-      } else {
-        obj[`- ${oneKey}`] = oneArgument[oneKey];
-        obj[`+ ${oneKey}`] = twoArgument[oneKey];
-      }
-    } else {
-      obj[`- ${oneKey}`] = oneArgument[oneKey];
-    }
-  }
-  for (const twoKey in twoArgument) {
-    if (!(twoKey in oneArgument)) {
-      obj[`+ ${twoKey}`] = twoArgument[twoKey];
-    }
-  }
-     return obj
-    }
-    mergeSorting(fileArgumentInfo(0), fileArgumentInfo(1))
-    
-    export {mergeSorting};
+            return Object.fromEntries(Object.entries(obj).sort());
+    };
+
+   function stand(){
+    console.log(mergeSorting(fileArgumentInfoSorted(0), fileArgumentInfoSorted(1)))
+   };
+
+   stand();
