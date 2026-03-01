@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import { mergeSorting } from '../src/functions.js';
 
 program
