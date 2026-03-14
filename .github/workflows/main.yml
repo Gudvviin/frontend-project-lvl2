@@ -1,8 +1,8 @@
-name: Demo Workflow
-on: workflow_dispatch
+name: Test Workflow
+on: push
 jobs:
-  print:
+  test:
     runs-on: ubuntu-24.04-arm
     steps:
-      - name: Print to console
-        run: echo Hello GH Actions!
+      - name: Test Reporter
+        uses: dorny/test-reporter@v2.6.0
