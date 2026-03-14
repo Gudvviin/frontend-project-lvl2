@@ -1,30 +1,15 @@
-name: CI
-
+name: 'CI'
 on:
   pull_request:
-  push:
-
-permissions:
-  contents: read
-  actions: read
-  checks: write  # Важно: разрешение на создание отчётов
-
 jobs:
-  test:
+  build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-      - name: Test Report      # Шаг с репортером
-        uses: dorny/test-reporter@v1
-        if: success() || failure()  # Запускается даже если тесты упали
+      - uses: actions/checkout@v4         # checkout the repo
+      - run: npm ci                       # install packages
+      - run: npm test                     # run tests (configured to use jest-junit reporter)
+      - uses: actions/upload-artifact@v4  # upload test results
+        if: ${{ !cancelled() }}           # run this step even if previous step failed
         with:
-          name: JEST Tests           # Название отчета в интерфейсе
-          path: reports/jest-*.xml   # Путь к файлам с результатами
-          reporter: jest-junit        # Формат файла
+          name: test-results
+          path: jest-junit.xml
