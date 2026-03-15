@@ -13,10 +13,6 @@
     "test": "jest --ci --reporters=default --reporters=jest-junit",
     "lint": "eslint --ext=.jsx,.js,.tsx,.ts"
   },
-   "jest-junit": {
-    "outputDirectory": "reports",
-    "outputName": "jest-junit.xml"
-  },
   "dependencies": {
     "commander": "^14.0.2"
   },
