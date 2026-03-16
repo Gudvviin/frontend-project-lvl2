@@ -10,7 +10,7 @@
   "author": "Afanasev",
   "main": "bin/gendiff.js",
   "scripts": {
-    "test": "jest --ci --reporters=default --reporters=jest-junit",
+    "test": "jest",
     "lint": "eslint --ext=.jsx,.js,.tsx,.ts"
   },
   "dependencies": {
