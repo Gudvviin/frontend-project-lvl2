@@ -7,7 +7,7 @@ describe('mergeSorting function', () => {
     let objTwo;
 
     beforeEach(() =>{
-objOne = {  name: 'Misha',
+    objOne = {  name: 'Misha',
             age: 30,
             gender: 'men',
             fruit: 'mango'
