@@ -1,5 +1,6 @@
 // @ts-check
 import {mergeSorting} from '../src/functions.js';
+import {sortingData} from '../src/parsers.js';
 
 describe('mergeSorting function', () => {
 
@@ -31,6 +32,6 @@ describe('mergeSorting function', () => {
         '+ like': 'moto'
     };
     
-    expect(mergeSorting(objOne, objTwo)).toEqual(expected)
+    expect(mergeSorting(sortingData(objOne), sortingData(objTwo))).toEqual(expected)
 });
 });
