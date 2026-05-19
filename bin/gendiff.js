@@ -1,19 +1,16 @@
 #!/usr/bin/env node
 
-import { mergeSorting } from '../src/functions.js';
-import { parsingFile, sortingData} from '../src/parsers.js';
 import { program } from 'commander';
+import { convertsToArray } from '../src/functions.js';
 
 program
-    .version('0.0.1', `-V, --version, output the version number`)
-    .option('-f, --format [type]',  'output format')
-    .argument('<filepath1>', 'mocks')
-    .argument('<filepath2>', 'mocks')
-    .description('Compares two configuration files and shows a difference.')
-    program.parse(process.argv);
-
-   function stand(){
-    console.log(mergeSorting(sortingData(parsingFile(0)), sortingData(parsingFile(0))))
-   };
-
-   stand();
+    .version('0.0.1', '-v, --version', 'output the version number')
+    .description('Compares two configuration files and shows a difference.')    //описывает программу
+    .option('-f, --format [type]',  'output format')    // опеределение флагов ком.стр.,которые помогают с запуском
+    .arguments('<args...>')
+    .action((args) => {
+        // console.log(convertsToArray(args));
+        convertsToArray(args);
+    });
+    
+program.parse();

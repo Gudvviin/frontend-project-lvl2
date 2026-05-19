@@ -1,14 +1,35 @@
-import yml from 'js-yaml';
 import * as fs from 'node:fs';
-import { program } from 'commander';
+import path from 'node:path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import yaml from 'js-yaml';
+import { load } from 'js-yaml';
 
-    function parsingFile (number = 0) {
-        const argument = `${'mocks/'}${program.parse(process.argv).args[number]}`;
-        let obj = (argument.split('.').pop() === 'yml') ? yml.load(fs.readFileSync(argument, "utf8")) : JSON.parse(fs.readFileSync(argument, "utf8"));
-        return obj;
-    };
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-    function sortingData (data) {
-        return Object.fromEntries(Object.entries(data).sort());
-    };
-    export {parsingFile, sortingData}
+const getUrlPath = (nameFile) => path.join(__dirname, '..', 'mocks', nameFile);
+
+function getConvertsToData (nameFile) { 
+    const arrUrl = getUrlPath(nameFile).split('.');
+    const fileExtension = arrUrl[arrUrl.length -1];
+
+
+    if (fileExtension === "yml") {
+        return yaml.load(fs.readFileSync(getUrlPath(nameFile), 'utf8'));
+    } else if (fileExtension === "json") {
+        return JSON.parse(fs.readFileSync(getUrlPath(nameFile), 'utf8'));
+    } else {
+        return "error, file unknown"
+    }
+
+};
+// const getSortArr = (data) => Object.entries(getConvertsToData(data)).sort();
+
+const isObject = (data) => {
+    if (getConvertsToData(data) instanceof Object){
+        return getConvertsToData(data)
+    }
+};
+
+    export {isObject};

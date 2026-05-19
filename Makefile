@@ -1,14 +1,16 @@
 install:
 	npm ci
+	npm install js-yaml
+	npm i --save lodash
 
 gendiff:
-	node bin/gendiff.js -h
+	node bin/gendiff.js 
 
 publish:
 	npm publish --dry-run
 
 lint:
-	npm run lint
+	npx eslint .
 
 test:
 	npm test
