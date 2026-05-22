@@ -9,8 +9,7 @@ program
     .option('-f, --format [type]',  'output format')    // опеределение флагов ком.стр.,которые помогают с запуском
     .arguments('<args...>')
     .action((args) => {
-        // console.log(convertsToArray(args));
-        convertsToArray(args);
+        console.log(convertsToArray(args));
     });
     
 program.parse();
