@@ -12,26 +12,22 @@ const {forEach} = pkg;
     return arr;
   };
 
-    function isChanges (element, obj1, obj2) {
-      const isKeyTrue = (element, obj) => obj.hasOwnProperty(element); 
-      if (isKeyTrue(element.keyName, obj1) === isKeyTrue(element.keyName, obj2) && element.keyValue === obj1[element.keyName] && element.keyValue === obj2[element.keyName]){
-        return {...element, keyStatus: "hasn't changed"};
-      } else if (isKeyTrue(element.keyName, obj1) === isKeyTrue(element.keyName, obj2) && element.keyValue !== obj1[element.keyValue]) {
-        return {...element, keyValue2: obj2[element.keyName], keyStatus: "has changed"}
-      } else {
-        return {...element}
-      }
-     return 
-    }
-
   function convertsToArray (data){
     const obj1 = isObject(data[0]);
     const obj2 = isObject(data[1]);
-    const arr = getArrOfObjects(obj1, "deleted");
-    const arr2 = getArrOfObjects(obj2, "add");
-    const arryConcatenation = arr.concat(arr2);
-    const arrayOfUniqueKeys = arryConcatenation.filter((item, index, arr) => index === arr.findIndex((obj) => item.keyName === obj.keyName));
-    const result = arrayOfUniqueKeys.map((item, index, arr) => isChanges(item,obj1, obj2)); 
+    const result = getArrOfObjects(obj1, "deleted").concat(getArrOfObjects(obj2, "add"))
+    .filter((item, index, arr) => index === arr.findIndex((obj) => item.keyName === obj.keyName))
+    .map((item, index, arr) => {
+      const isKeyTrue = (item, obj) => obj.hasOwnProperty(item); 
+      if (isKeyTrue(item.keyName, obj1) === isKeyTrue(item.keyName, obj2) && item.keyValue === obj1[item.keyName] && item.keyValue === obj2[item.keyName]){
+        return {...item, keyStatus: "hasn't changed"};
+      } else if (isKeyTrue(item.keyName, obj1) === isKeyTrue(item.keyName, obj2) && item.keyValue !== obj1[item.keyValue]) {
+        return {...item, keyValue2: obj2[item.keyName], keyStatus: "has changed"}
+      } else {
+        return {...item}
+      }
+     return 
+    }); 
     return result;
 };
 
