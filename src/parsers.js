@@ -24,7 +24,6 @@ function getConvertsToData (nameFile) {
     }
 
 };
-// const getSortArr = (data) => Object.entries(getConvertsToData(data)).sort();
 
 const isObject = (data) => {
     if (getConvertsToData(data) instanceof Object){
