@@ -14,9 +14,8 @@ const {forEach} = pkg;
 
   function convertsToArray (data){
     const obj1 = isObject(data[0]);
-    const obj2 = isObject(data[1]);
-    const result = getArrOfObjects(obj1, "deleted").concat(getArrOfObjects(obj2, "add"))
-    .filter((item, index, arr) => index === arr.findIndex((obj) => item.keyName === obj.keyName))
+    const obj2 = isObject(data[1]); 
+    const result = _.unionBy(getArrOfObjects(obj1, "deleted"), getArrOfObjects(obj2, "add"), "keyName")
     .map((item, index, arr) => {
       const isKeyTrue = (item, obj) => obj.hasOwnProperty(item); 
       if (isKeyTrue(item.keyName, obj1) === isKeyTrue(item.keyName, obj2) && item.keyValue === obj1[item.keyName] && item.keyValue === obj2[item.keyName]){
