@@ -12,12 +12,9 @@ const {forEach} = pkg;
     return arr;
   };
 
-  function convertsToArray (data){
-    const obj1 = isObject(data[0]);
-    const obj2 = isObject(data[1]); 
+  function convertsToArray (obj1, obj2){
     const result = _.unionBy(getArrOfObjects(obj1), getArrOfObjects(obj2), "keyName")
-    .map((item, index, arr) => {
-      const isKeyTrue = (item, obj) => obj.hasOwnProperty(item); 
+    .map((item) => { const isKeyTrue = (item, obj) => obj.hasOwnProperty(item); 
       if (isKeyTrue(item.keyName, obj1) === isKeyTrue(item.keyName, obj2) && item.keyValue === obj1[item.keyName] && item.keyValue === obj2[item.keyName]){
         return {...item, keyStatus: "hasn't changed"};
       } else if (isKeyTrue(item.keyName, obj1) === isKeyTrue(item.keyName, obj2) && item.keyValue !== obj1[item.keyValue]) {
@@ -26,7 +23,7 @@ const {forEach} = pkg;
         return {...item, keyStatus: "deleted"}
       } else  if (isKeyTrue(item.keyName, obj2)){
         return {...item, keyStatus: "add"}
-      }
+      } 
      return 
     }); 
     return result;
