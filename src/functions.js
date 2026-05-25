@@ -13,6 +13,7 @@ const {forEach} = pkg;
   };
 
   function convertsToArray (obj1, obj2){
+    console.log(Object.keys(obj1).map(item => ({keyName: item , keyValue: obj1[item] })));
     const result = _.unionBy(getArrOfObjects(obj1), getArrOfObjects(obj2), "keyName")
     .map((item) => { const isKeyTrue = (item, obj) => obj.hasOwnProperty(item); 
       if (isKeyTrue(item.keyName, obj1) === isKeyTrue(item.keyName, obj2) && item.keyValue === obj1[item.keyName] && item.keyValue === obj2[item.keyName]){
