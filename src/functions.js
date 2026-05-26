@@ -20,5 +20,25 @@ import _ from "lodash";
     }); 
     return result;
 };
+function formattingForOutput (data){
+const result = data
+.reduce((acc, item) => {
+  if (item.keyStatus === "removed"){
+    acc["-"+item.keyName] = item.keyValue;
+  }
+  if (item.keyStatus === "unchanged"){
+    acc[" "+item.keyName] = item.keyValue;
+  }
+  if (item.keyStatus === "changed"){
+    acc["-"+item.keyName] = item.keyValue;
+    acc["+"+item.keyName] = item.keyValue2;
+  }
+  if (item.keyStatus === "added"){
+    acc["+"+item.keyName] = item.keyValue;
+  }
+  return acc
+}, {})
+return result
+}
 
-  export {convertsToArray};
+  export {convertsToArray,formattingForOutput};
