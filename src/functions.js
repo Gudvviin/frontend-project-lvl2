@@ -35,22 +35,22 @@ import _ from "lodash";
     list.forEach(element => {
       const result = arr.find(item => item.keyName === element);
       if (result.keyStatus === "removed"){
-        obj["-"+result.keyName] = result.keyValue;
+        obj["- "+result.keyName] = result.keyValue;
       }
       if (result.keyStatus === "unchanged") {
-        obj[""+result.keyName] = result.keyValue;
+        obj[result.keyName] = result.keyValue;
       }
       if (result.keyStatus === "changed") {
-        obj["-"+result.keyName] = result.keyValue;
-        obj["+"+result.keyName] = result.keyValue2;
+        obj["- "+result.keyName] = result.keyValue;
+        obj["+ "+result.keyName] = result.keyValue2;
       }
       if (result.keyStatus === "added") {
-        obj["+"+result.keyName] = result.keyValue;
+        obj["+ "+result.keyName] = result.keyValue;
       }
         
     });
     return obj
-   }
+   };
    
     return listTransformation(callArr, result);
 };

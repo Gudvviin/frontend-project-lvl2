@@ -1,37 +1,29 @@
 // @ts-check
-import {mergeSorting} from '../src/functions.js';
-import {sortingData} from '../src/parsers.js';
+import {convertsToArray} from '../src/functions.js';
 
 describe('mergeSorting function', () => {
+test('should correctly compare two objects', () => {
+    const obj1 = {
+  "host": "hexlet.io",
+  "timeout": 50,
+  "proxy": "123.234.53.22",
+  "follow": false
+};
+    const obj2 = {
+  "timeout": 20,
+  "verbose": true,
+  "host": "hexlet.io"
+};
 
-    let objOne;
-    let objTwo;
-
-    beforeEach(() =>{
-    objOne = {  name: 'Misha',
-            age: 30,
-            gender: 'men',
-            fruit: 'mango'
-        };
-
-    objTwo = {  age: 37,
-                name: 'Misha',
-                gender: 'men',
-                like: 'moto'
-            };
-            
-        });
-
-        test('should correctly compare two objects', () => {
     const expected = {
-        '- age': 30,
-        '+ age': 37,
-        '- fruit': 'mango',
-        gender: 'men',
-        name: 'Misha',
-        '+ like': 'moto'
-    };
-    
-    expect(mergeSorting(sortingData(objOne), sortingData(objTwo))).toEqual(expected)
+  ' - follow': false,
+  ' host': 'hexlet.io',
+  ' - proxy': '123.234.53.22',
+  ' - timeout': 50,
+  ' + timeout': 20,
+  ' + verbose': true
+};
+    const result = convertsToArray(obj1, obj2)
+    expect(result).toBe(expected)
 });
 });
