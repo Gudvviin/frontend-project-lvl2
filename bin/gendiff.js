@@ -10,7 +10,6 @@ program
     .option('-f, --format [type]',  'output format')    // опеределение флагов ком.стр.,которые помогают с запуском
     .arguments('<args...>')
     .action((args) => {
-        console.log(args[0])
         console.log(convertsToArray(isObject(args[0]), isObject(args[1])));
     });
     
