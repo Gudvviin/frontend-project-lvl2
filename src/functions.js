@@ -1,4 +1,3 @@
-import pkg from "lodash";
 import _ from "lodash";
 
   function convertsToArray (obj1, obj2){
@@ -31,25 +30,25 @@ import _ from "lodash";
   }
     const callArr = [...new Set([...subsequence(obj1), ...subsequence(obj2)])];
    function listTransformation(list, arr) {
-    const obj = {};
+    const arrayStrings = [];
     list.forEach(element => {
       const result = arr.find(item => item.keyName === element);
       if (result.keyStatus === "removed"){
-        obj["- "+result.keyName] = result.keyValue;
+        arrayStrings.push(`- ${result.keyName}: ${result.keyValue}`)
       }
       if (result.keyStatus === "unchanged") {
-        obj[result.keyName] = result.keyValue;
+        arrayStrings.push(`  ${result.keyName}: ${result.keyValue}`)
       }
       if (result.keyStatus === "changed") {
-        obj["- "+result.keyName] = result.keyValue;
-        obj["+ "+result.keyName] = result.keyValue2;
+        arrayStrings.push(`- ${result.keyName}: ${result.keyValue}`)
+        arrayStrings.push(`+ ${result.keyName}: ${result.keyValue2}`)
       }
       if (result.keyStatus === "added") {
-        obj["+ "+result.keyName] = result.keyValue;
+        arrayStrings.push(`+ ${result.keyName}: ${result.keyValue}`)
       }
-        
     });
-    return obj
+
+    return `{\n${arrayStrings.join().replace(/,/g, ',\n')}\n}`
    };
    
     return listTransformation(callArr, result);
