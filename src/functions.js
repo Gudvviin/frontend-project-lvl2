@@ -30,25 +30,25 @@ import _ from "lodash";
   }
     const callArr = [...new Set([...subsequence(obj1), ...subsequence(obj2)])];
    function listTransformation(list, arr) {
-    const arrayStrings = [];
-    list.forEach(element => {
-      const result = arr.find(item => item.keyName === element);
-      if (result.keyStatus === "removed"){
-        arrayStrings.push(`- ${result.keyName}: ${result.keyValue}`)
+    const arrayStrings = list.map((element) => {
+      const objElement = arr.find(item => item.keyName === element);
+      if (objElement.keyStatus === "removed"){
+        return `- ${objElement.keyName}: ${objElement.keyValue}`
       }
-      if (result.keyStatus === "unchanged") {
-        arrayStrings.push(`  ${result.keyName}: ${result.keyValue}`)
+      if (objElement.keyStatus === "unchanged"){
+        return `  ${objElement.keyName}: ${objElement.keyValue}`
       }
-      if (result.keyStatus === "changed") {
-        arrayStrings.push(`- ${result.keyName}: ${result.keyValue}`)
-        arrayStrings.push(`+ ${result.keyName}: ${result.keyValue2}`)
+      if (objElement.keyStatus === "changed"){
+        return [
+          `- ${objElement.keyName}: ${objElement.keyValue}`, 
+          `+ ${objElement.keyName}: ${objElement.keyValue2}`
+        ].join('\n')
       }
-      if (result.keyStatus === "added") {
-        arrayStrings.push(`+ ${result.keyName}: ${result.keyValue}`)
+      if (objElement.keyStatus === "added") {
+        return `+ ${objElement.keyName}: ${objElement.keyValue}`
       }
     });
-
-    return `{\n${arrayStrings.join().replace(/,/g, ',\n')}\n}`
+    return `{\n${arrayStrings.join('\n')}\n}`
    };
    
     return listTransformation(callArr, result);
