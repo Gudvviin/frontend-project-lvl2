@@ -3,14 +3,25 @@ import _ from "lodash";
   function convertsToArray (obj1, obj2){
     const result = _.unionBy(Object.keys(obj1), Object.keys(obj2))
     .map((item) => {
-      if (typeof obj1[item] === "object" && typeof obj2[item] === "object" && obj1[item] !== null &&  obj2[item] !== null)
-        {
-          return {keyName: item, keyValue: convertsToArray(obj1[item], obj2[item])};
-        } else {
-          
+      // console.log(typeof obj1[item], typeof obj2[item])
+      // if (typeof obj2[item] === "object"  && obj2[item] !== null && typeof obj2[item] === undefined) {
+      //   console.log(item,'1')
+      //   return {keyName: item, keyValue: obj2[item].keyValue, keyStatus: "object1"}
+      // }
+      // console.log(typeof obj1[item] === "object" , obj1[item] !== null , typeof obj2[item] === "object"  , obj2[item] !== null, " ||",
+      //   typeof obj1[item] === "object" && obj1[item] !== null && typeof obj2[item] === "object"  && obj2[item] !== null,
+      //    item,"осн") 
+ if (typeof obj2[item] === "object"  && obj2[item] !== null) {
+return {keyName: item, keyValue: convertsToArray(obj2[item], obj2[item]), keyStatus: "object"}
+    } else if (typeof obj1[item] === "object" && obj1[item] !== null ) {
+      return {keyName: item, keyValue: convertsToArray(obj1[item], obj1[item]), keyStatus: "object"}
+    } else if (typeof obj1[item] === "object" && obj1[item] !== null && typeof obj2[item] === "object"  && obj2[item] !== null ) {
+      return {keyName: item, keyValue: convertsToArray(obj1[item], obj2[item]), keyStatus: "object"}
+    }
+     else {
       if (!_.has(obj1, item)){
         return {keyName: item, keyValue: obj2[item], keyStatus: "added"}
-      }
+      } 
       if (!_.has(obj2, item)){
         return {keyName: item, keyValue: obj1[item], keyStatus: "removed"}
       }
@@ -20,11 +31,11 @@ import _ from "lodash";
       if (obj1[item] !== obj2[item]) {
         return {keyName: item, keyValue: obj1[item], keyValue2: obj2[item], keyStatus: "changed"}
       }
-     
-        }
+       
+    }
   }); 
-  console.log(result)
-  return result
+ 
+  return result;
   //   function subsequence (obj){
   //   const objectLength = Object.keys(obj).length;
   //   const objectResult = [];
