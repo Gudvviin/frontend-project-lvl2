@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 function convertsToArray(obj1, obj2) {
-  const result = _.unionBy(Object.keys(obj1), Object.keys(obj2))
+  const result = _.sortBy(_.unionBy(Object.keys(obj1), Object.keys(obj2)))
     .map((item) => {
       if (typeof obj1[item] === "object" && typeof obj2[item] === "object" && obj1[item] !== null && obj2[item] !== null) {
         return { keyName: item, keyValue: convertsToArray(obj1[item], obj2[item]), keyStatus: "object" };
@@ -24,33 +24,8 @@ function convertsToArray(obj1, obj2) {
         }
       }
     });
- 
-  function listTransformation(arr) {
-    const callArr = _.sortBy([...new Set([...Object.keys(obj1), ...Object.keys(obj2)])]);
-    const arrayStrings = callArr.map((element) => {
-      const objElement = arr.find(item => item.keyName === element);
-      if (objElement.keyStatus === "removed" || objElement.keyStatus === "object, removed") {
-        return `- ${objElement.keyName}: ${objElement.keyValue}`
-      }
-      if (objElement.keyStatus === "unchanged" || objElement.keyStatus === "object") {
-        return `  ${objElement.keyName}: ${objElement.keyValue}`
-      }
-      if (objElement.keyStatus === "changed") {
-        return [
-          `- ${objElement.keyName}: ${objElement.keyValue}`,
-          `+ ${objElement.keyName}: ${objElement.keyValue2}`
-        ].join('\n')
-      }
-      if (objElement.keyStatus === "added" || objElement.keyStatus === "object, add") {
-        return `+ ${objElement.keyName}: ${objElement.keyValue}`
-      }
-     
-    });
 
-    return `{\n${arrayStrings.join('\n')}\n}`
-  };
-
-  return listTransformation(result);
+  return result;
 };
 
 

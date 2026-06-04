@@ -8,11 +8,11 @@ import { load } from 'js-yaml';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const getUrlPath = (nameFile) => path.join(__dirname, '..', 'mocks', nameFile);
+const getUrlPath = (nameFile) => path.join(__dirname, '..', '__fixtures__', nameFile);
 
-function getConvertsToData (nameFile) { 
+function getConvertsToData(nameFile) {
     const arrUrl = getUrlPath(nameFile).split('.');
-    const fileExtension = arrUrl[arrUrl.length -1];
+    const fileExtension = arrUrl[arrUrl.length - 1];
 
 
     if (fileExtension === "yml") {
@@ -26,9 +26,9 @@ function getConvertsToData (nameFile) {
 };
 
 const isObject = (data) => {
-    if (getConvertsToData(data) instanceof Object){
+    if (getConvertsToData(data) instanceof Object) {
         return getConvertsToData(data)
     }
 };
 
-    export {isObject};
+export { isObject };
