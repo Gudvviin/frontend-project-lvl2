@@ -24,6 +24,6 @@ test('should correctly compare two objects', () => {
   "+ verbose": true
 };
     const result = convertsToArray(obj1, obj2)
-    expect(result).toStrictEqual(expected)
+    expect(result).toBe(expected)
 });
 });
