@@ -12,7 +12,7 @@ function stylish(data, int = 0, s = " ") {
                 return `${sign.repeat(int + 2)}- ${item.keyName}: ${item.keyValue}`
             }
             if (item.keyStatus === "unchanged") {
-                return `${sign.repeat(int + 2)} ${item.keyName}: ${item.keyValue}`
+                return `${sign.repeat(int + 2)}${item.keyName}: ${item.keyValue}`
             }
             if (item.keyStatus === "changed") {
                 return [

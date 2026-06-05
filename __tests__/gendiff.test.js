@@ -1,5 +1,6 @@
 // @ts-check
 import {convertsToArray} from '../src/functions.js';
+import { stylish } from '../commander/stylish.js';
 
 describe('mergeSorting function', () => {
 test('should correctly compare two objects', () => {
@@ -15,15 +16,15 @@ test('should correctly compare two objects', () => {
   "host": "hexlet.io"
 };
 
-    const expected = {
-  "- follow": false,
-  "host": "hexlet.io",
-  "- proxy": "123.234.53.22",
-  "- timeout": 50,
-  "+ timeout": 20,
-  "+ verbose": true
-};
-    const result = convertsToArray(obj1, obj2)
+    const expected = `{
+  - follow: false
+  host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true 
+}`;
+    const result = stylish(convertsToArray(obj1, obj2));
     expect(result).toBe(expected)
 });
 });
