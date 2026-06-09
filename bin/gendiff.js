@@ -11,7 +11,7 @@ program
     .arguments('<args...>')
     .action((args, way) => {
         const diff = convertsToArray(isObject(args[0]), isObject(args[1]))
-       const result = getSomeFn(way, 'listTransformation', diff)
+        const result = getSomeFn(way, 'listTransformation', diff)
         console.log(result)
  
     });
