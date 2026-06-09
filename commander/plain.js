@@ -1,31 +1,51 @@
-function plain (arr) {
-      const arrayStrings = arr.map((element) => {
+function plain(arr, acc) {
+  
+const arrName = [];
+  const arrayStrings = arr.map((element) => {
+    
     if (element.keyStatus === "object") {
-      const result = plain(element.keyValue)
-      return `Property '${element.keyName}.${result}' was added wirh: `
-    } else if (element.keyStatus === "object, removed") {
-      return `Property"${element.keyName}": ${element.keyValue}`
-    } else if (element.keyStatus === "object, add") {
-      return `Property"${element.keyName}": ${element.keyValue}`
+      arrName.push(element.keyName)
+      
+      return `${plain(element.keyValue, arrName)}`
+    // }
+    // else if (element.keyStatus === "object, removed") {
+    
+    //   arrName.push(element.keyName)
+    //   return `${plain(element.keyValue, arrName)}`
+    // }
+    // else if (element.keyStatus === "object, add") {
+    //   arrName.push(element.keyName)
+    //   return `${plain(element.keyValue, arrName)}`
     } else {
+      
       if (element.keyStatus === "removed" || element.keyStatus === "object, removed") {
-        return `Property '${element.keyName} was removed`
+        if (typeof acc !== 'undefined'){
+        return `Property '${acc.join('.')}.${element.keyName}' was removed`
+        } else {
+          return `Property '${element.keyName}' was removed`
+        }
       }
       if (element.keyStatus === "unchanged") {
-        return `Property"${element.keyName}": ${element.keyValue}`
+        
+        return `Property '${acc.join('.')}.${element.keyName}'  was added with value: [complex value]`
       }
       if (element.keyStatus === "changed") {
-        return [
-          `Property"${element.keyName}": ${element.keyValue}`,
-          `Property"${element.keyName}": ${element.keyValue2}`
-        ].join('\n')
+      //  console.log(acc)
+        return `Property '${acc.join('.')}.${element.keyName}' was updated. From '${element.keyValue}' tot '${element.keyValue2}'`
       }
       if (element.keyStatus === "added" || element.keyStatus === "object, add") {
-        return `Property '${element.keyName} was added `
+        if (typeof acc !== 'undefined') {
+          // console.log(acc) 
+          return `Property '${acc.join('.')}.${element.keyName}' was added with value: ${element.keyValue}`
+        } else {
+        return `Property '${element.keyName}' was added with value: [complex value]`
+        }
       }
+      
     }
   });
-   return `${arrayStrings.join('\n')}`
+  return `${arrayStrings.join('\n')}`
 
 }
-export {plain}
+
+export { plain }
