@@ -31,7 +31,7 @@ function plain(arr, acc) {
       }
     } else {
       if (element.keyStatus === "removed") {
-        return `Property '${arrName.join('.')}.${element.keyName}' was removed`
+        return `Property '${arrName.join('.')}.${element.keyName}' was removed!`
       }
       if (element.keyStatus === "unchanged") {
         return `Property '${arrName.join('.')}.${element.keyName}' was added with value: [complex value]`
@@ -47,5 +47,4 @@ function plain(arr, acc) {
   return `${arrayStrings.join('\n')}`
 
 }
-
 export { plain }

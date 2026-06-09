@@ -4,7 +4,6 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import yaml from 'js-yaml';
 import { load } from 'js-yaml';
-import { listTransformation } from '../commander/str.js';
 import { plain } from '../commander/plain.js';
 import { stylish } from '../commander/stylish.js';
 
@@ -34,16 +33,13 @@ const isObject = (data) => {
     }
 };
 
-function getSomeFn(data, nameDefault, list){
+function getSomeFn(data, nameDefault, list) {
     const nameFn = data[Object.keys(data)[0]]
     if (nameFn === nameDefault) {
-        return listTransformation(list);
-    }
-    if (nameFn === 'stylish'){
-        return stylish(list);
-    }
-    if (nameFn === 'plain'){
         return plain(list);
+    }
+    if (nameFn === 'stylish') {
+        return stylish(list);
     }
 }
 
