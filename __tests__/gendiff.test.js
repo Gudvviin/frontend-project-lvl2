@@ -1,20 +1,20 @@
 // @ts-check
-import {convertsToArray} from '../src/functions.js';
-import { stylish } from '../commander/stylish.js';
+import { convertsToArray } from '../src/functions.js';
+import { stylish } from '../formatters/commander.js';
 
 describe('mergeSorting function', () => {
-test('should correctly compare two objects', () => {
+  test('should correctly compare two objects', () => {
     const obj1 = {
-  "host": "hexlet.io",
-  "timeout": 50,
-  "proxy": "123.234.53.22",
-  "follow": false
-};
+      "host": "hexlet.io",
+      "timeout": 50,
+      "proxy": "123.234.53.22",
+      "follow": false
+    };
     const obj2 = {
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io"
-};
+      "timeout": 20,
+      "verbose": true,
+      "host": "hexlet.io"
+    };
 
     const expected = `{
   - follow: false
@@ -26,5 +26,5 @@ test('should correctly compare two objects', () => {
 }`;
     const result = stylish(convertsToArray(obj1, obj2));
     expect(result).toBe(expected)
-});
+  });
 });
